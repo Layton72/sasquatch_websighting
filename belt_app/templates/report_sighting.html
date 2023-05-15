@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Report Sighting</title>
+</head>
+<body>
+    <nav class="navbar text-bg-dark">
+        <div class="container d-flex justify-content-between">
+            <a class="navbar-brand" href="/sasquatch">
+                <span class="navbar-brand mb-0 h1 text-white">Sasquatch Websightings</span>
+            </a>
+            <div>
+                <h5>{{user.first_name}}</h5>
+                <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-white" href="/sasquatch">Dashboard</a>
+                |
+                <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover text-white" href="/sasquatch/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container d-flex justify-content-center">
+        <div class="w-50">
+            <div class="border-bottom mt-4 mb-3">
+                <h1>Report a new Sighting</h1>
+            </div>
+            {% with errors_list = get_flashed_messages() %}
+                {% if errors_list %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for error_msg in errors_list %}
+                                <li class="text-wrap">{{ error_msg }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {%endwith %}
+            <form action="/sasquatch/report/process" method="post">
+                <div class="d-flex justify-content-between gap-3">
+                    <div class="flex-fill">
+                        <div class="mb-5 form-floating">
+                            <input type="text" class="form-control" id="location" location="location" name="location" placeholder="Recipe location" value="{{location}}">
+                            <label for="location" class="form-label">Location</label>
+                        </div>
+                        <div class="mb-3 form-floating">
+                            <textarea class="form-control" id="description" rows="5" name="description" placeholder="description" style="height: 100px">{{description}}</textarea>
+                            <label for="description" class="form-label">What Happened</label>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div class="mb-3 form-floating">
+                            <input type="date" class="form-control" id="date" name="date" value="{{date}}">
+                            <label for="date" class="form-label">Date of Sighting</label>
+                        </div>
+                        <div class="mb-1 form-floating">
+                            <input type="number" class="form-control" id="num_sas" name="num_sas" value="{{num_sas}}">
+                            <label for="num_sas" class="form-label">Number of Sasquatches</label>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Report</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>
